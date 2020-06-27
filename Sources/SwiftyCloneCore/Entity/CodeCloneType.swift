@@ -7,6 +7,8 @@ public enum CodeCloneType: String {
         switch self {
         case .type1:
             return Type1Visitor()
+        case .type2:
+            return Type2Visitor()
         default:
             break
         }
@@ -14,6 +16,14 @@ public enum CodeCloneType: String {
     }
 
     public var cloneDetector: CloneDetector {
-        return Type1CloneDetetor()
+        switch self {
+        case .type1:
+            return Type1CloneDetetor()
+        case .type2:
+            return Type2CloneDetetor()
+        default:
+            break
+        }
+        fatalError()
     }
 }
