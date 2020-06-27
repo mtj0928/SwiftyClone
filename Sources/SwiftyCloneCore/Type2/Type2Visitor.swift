@@ -1,8 +1,16 @@
+import Foundation
 import SwiftSyntax
 
 public class Type2Visitor: SyntaxVisitor, Visitor {
 
     public private(set) var chunks = [CodeChunk]()
+    private let source: String
+    private let path: URL
+
+    public required init(source: String, at path: URL) {
+        self.source = source
+        self.path = path
+    }
 
     public override func visit(_ node: CodeBlockSyntax) -> SyntaxVisitorContinueKind {
         push(node.statements)
@@ -16,17 +24,8 @@ public class Type2Visitor: SyntaxVisitor, Visitor {
 
     private func push(_ statements: CodeBlockItemListSyntax) {
         let tokens = normalization(statements)
-        let codeChunk = CodeChunk(tokens: tokens, original: statements._syntaxNode)
+        let codeChunk = CodeChunk(tokens: tokens, original: statements._syntaxNode, source: source, at: path)
         chunks.append(codeChunk)
-
-//        let text = tokens.reduce("") { (result, token) -> String in
-//            if result.isEmpty {
-//                return token.value
-//            }
-//            return "\(result) \(token.value)"
-//        }
-//        print(text)
-//        print("\n==============================================================")
     }
 
     private func normalization(_ statements: CodeBlockItemListSyntax) -> [Token] {

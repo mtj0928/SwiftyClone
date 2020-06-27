@@ -1,8 +1,11 @@
+import Foundation
 import SwiftSyntax
 
 public struct CodeChunk {
     public let tokens: [Token]
     public let original: Syntax
+    public let source: String
+    public let path: URL
 
     public var description: String {
         original
@@ -17,9 +20,11 @@ public struct CodeChunk {
         }
     }
 
-    public init(tokens: [Token], original: Syntax) {
+    public init(tokens: [Token], original: Syntax, source: String, at path: URL) {
         self.tokens = tokens
         self.original = original
+        self.source = source
+        self.path = path
     }
 }
 

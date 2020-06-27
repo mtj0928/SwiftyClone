@@ -1,5 +1,5 @@
 struct Type2CodeClone: CodeClone {
-    let type = CodeCloneType.type1
+    let type = CodeCloneType.type2
     let chunks: [CodeChunk]
 
     var description: String {

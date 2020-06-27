@@ -3,12 +3,12 @@ import Foundation
 public enum CodeCloneType: String {
     case type1, type2, type3
 
-    public var visitor: Visitor {
+    public func createVisitor(source: String, at path: URL) -> Visitor {
         switch self {
         case .type1:
-            return Type1Visitor()
+            return Type1Visitor(source: source, at: path)
         case .type2:
-            return Type2Visitor()
+            return Type2Visitor(source: source, at: path)
         default:
             break
         }
