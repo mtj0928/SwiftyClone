@@ -18,7 +18,7 @@ struct XcodeReporter: Reporter {
             let converter = SourceLocationConverter(file: chunk.source, tree: sourceFile)
             let location = chunk.original.startLocation(converter: converter)
 
-            print("\(chunk.path.path):\(location.line ?? 0):\(location.column ?? 0): warning: This code may be \(clone.type) code clode with \(first.path.path) at \(firstLocation.line ?? 0)")
+            print("\(chunk.path.path):\(location.line ?? 0):\(location.column ?? 0): warning: This code may be a \(clone.type) code clode with \(first.path.path) at \(firstLocation.line ?? 0)")
         }
     }
 }
