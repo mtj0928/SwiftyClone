@@ -8,19 +8,22 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/kylef/Commander.git", from: "0.0.0"),
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50200.0")),
+        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
     ],
     targets: [
         .target(
             name: "SwiftyCloneCLI",
             dependencies: [
                 "Commander",
-                "SwiftyCloneCore"
+                "SwiftyCloneCore",
+                .product(name: "Logging", package: "swift-log"),
             ]
         ),
         .target(
             name: "SwiftyCloneCore",
             dependencies: [
                 "SwiftSyntax",
+                .product(name: "Logging", package: "swift-log"),
             ]
         ),
         .testTarget(

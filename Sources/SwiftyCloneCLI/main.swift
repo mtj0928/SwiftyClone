@@ -2,6 +2,7 @@ import Foundation
 import Commander
 import SwiftyCloneCore
 import SwiftSyntax
+import Logging
 
 let main = command(
     Argument<URL>("path", description: "a file or a target directory including target Swift source files."),
@@ -12,10 +13,15 @@ let main = command(
         u.pathExtension == "swift"
     }
 
+    var logger = Logger(label: "SwityCloneCLI")
+    logger.logLevel = Logger.Level.debug
+
     let chunks = try urls.flatMap { (url: URL) -> [CodeChunk] in
         let source = try loadFile(of: url)
         let node = try SyntaxParser.parse(source: source)
         let visitor = type.createVisitor(source: source, at: url)
+        
+        logger.debug("Walking \(url.path)")
         visitor.walk(node)
         return visitor.chunks
     }
