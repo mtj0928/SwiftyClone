@@ -2,7 +2,7 @@ import SwiftyCloneCore
 import SwiftSyntax
 
 struct XcodeReporter: Reporter {
-    func report(with clone: CodeClone) {
+    func report(about clone: CodeClone) {
         var chunks = clone.chunks
         let first = chunks.removeFirst()
         guard let firstSource = first.original.root.as(SourceFileSyntax.self) else {

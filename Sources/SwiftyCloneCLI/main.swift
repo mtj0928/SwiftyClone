@@ -9,6 +9,7 @@ let main = command(
     Option<CodeCloneType>("type", default: .type1, description: "code clone type. (type1, type2, typ3)")
     )
 { url, type in
+    let startDate = Date()
     let urls = searchURL(url: url) { (u: URL) -> Bool in
         u.pathExtension == "swift"
     }
@@ -28,8 +29,11 @@ let main = command(
 
     let cloneDetector = type.cloneDetector
     let clones = cloneDetector.detect(for: chunks)
-    let reporter = XcodeReporter()
-    clones.forEach { reporter.report(with: $0) }
+    let reporter = CliReporter()
+    clones.forEach { reporter.report(about: $0) }
+
+    let elapsed = Date().timeIntervalSince(startDate)
+    logger.debug(Logger.Message.init(stringLiteral: "Time: \(elapsed)"))
 }
 
 main.run()

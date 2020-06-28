@@ -1,5 +1,5 @@
 import SwiftyCloneCore
 
 protocol Reporter {
-    func report(with clone: CodeClone)
+    func report(about clone: CodeClone)
 }
